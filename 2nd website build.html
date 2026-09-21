@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clasp — Accessories, finished right</title>
+<meta name="description" content="Clasp is an accessories house for jewelry, bags, belts and everything that finishes an outfit. Shop considered pieces, made to last.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#1B2321',
+          paper: '#EFE7D8',
+          paper2: '#E4DAC5',
+          brass: '#B8935B',
+          brassdark: '#9C7A47',
+          berry: '#6B2737',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          sans: ['Inter', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: 88px; scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: inherit; }
+  body { background-color: #EFE7D8; }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .skeleton {
+    background: linear-gradient(100deg, #E4DAC5 30%, #EFE7D8 45%, #E4DAC5 60%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
+    outline: 2px solid #B8935B;
+    outline-offset: 2px;
+  }
+
+  .clip-card {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
+  }
+</style>
+</head>
+
+<body class="font-sans text-ink antialiased">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-brass focus:text-ink focus:px-4 focus:py-2 focus:rounded">Skip to content</a>
+
+<!-- ============ HEADER ============ -->
+<header class="sticky top-0 z-50 bg-paper/90 backdrop-blur border-b border-ink/10" style="padding-top: env(safe-area-inset-top, 0px);">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between" aria-label="Primary">
+    <a href="#main" class="font-display text-2xl tracking-tight text-ink flex items-baseline gap-1">
+      Clasp<span class="text-brass">.</span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-9 text-[15px]">
+      <li><a href="#shop" class="hover:text-brassdark transition-colors">Shop</a></li>
+      <li><a href="#edit" class="hover:text-brassdark transition-colors">The Edit</a></li>
+      <li><a href="#about" class="hover:text-brassdark transition-colors">About</a></li>
+      <li><a href="#contact" class="hover:text-brassdark transition-colors">Contact</a></li>
+    </ul>
+
+    <div class="flex items-center gap-4">
+      <button id="cart-btn" type="button" class="relative flex items-center gap-2 text-[15px] hover:text-brassdark transition-colors" aria-label="Cart, 0 items">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M6 7h12l-1 12H7L6 7Z" stroke-linejoin="round"/>
+          <path d="M9 7V5.5a3 3 0 0 1 6 0V7" stroke-linecap="round"/>
+        </svg>
+        <span class="hidden sm:inline">Bag</span>
+        <span id="cart-count" class="absolute -top-2 -right-2 sm:static sm:ml-0.5 bg-berry text-paper text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
+      </button>
+
+      <button id="menu-toggle" type="button" class="md:hidden p-2 -mr-2" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg id="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="icon-close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="hidden md:hidden border-t border-ink/10 bg-paper">
+    <ul class="flex flex-col px-5 py-3 text-[15px]">
+      <li><a href="#shop" class="block py-3 border-b border-ink/10">Shop</a></li>
+      <li><a href="#edit" class="block py-3 border-b border-ink/10">The Edit</a></li>
+      <li><a href="#about" class="block py-3 border-b border-ink/10">About</a></li>
+      <li><a href="#contact" class="block py-3">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="bg-ink text-paper overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 grid md:grid-cols-2 gap-10 md:gap-6 items-center py-14 sm:py-20 md:py-28">
+      <div class="max-w-xl">
+        <p class="text-brass text-sm tracking-wide mb-4">Accessories for dressing well</p>
+        <h1 class="font-display font-semibold leading-[1.05] text-[2.6rem] sm:text-6xl md:text-[3.4rem] lg:text-6xl">
+          Small pieces.<br>Whole outfits.
+        </h1>
+        <p class="mt-6 text-base sm:text-lg text-paper/75 leading-relaxed max-w-md">
+          Clasp makes the jewelry, belts, bags and watches that hold a look together — cut from real materials, built to outlast the season.
+        </p>
+        <div class="mt-9 flex flex-wrap items-center gap-4">
+          <a href="#shop" class="inline-flex items-center gap-2 bg-brass text-ink px-7 py-3.5 rounded-sm font-medium hover:bg-paper transition-colors">
+            Shop the collection
+          </a>
+          <a href="#about" class="text-paper/80 hover:text-paper underline underline-offset-4 decoration-brass/60">
+            Our materials
+          </a>
+        </div>
+      </div>
+
+      <div class="relative mx-auto w-full max-w-sm md:max-w-none">
+        <div class="clip-card overflow-hidden border border-paper/15">
+          <img
+            src="https://images.unsplash.com/photo-1473188588951-666fce8e7c68?auto=format&fit=crop&w=900&q=70"
+            alt="A leather satchel bag, one of Clasp's accessory pieces"
+            class="w-full h-[340px] sm:h-[420px] md:h-[460px] object-cover">
+        </div>
+        <div class="absolute -bottom-5 -left-5 bg-brass text-ink text-sm px-4 py-2.5 rounded-sm shadow-lg hidden sm:block">
+          Full-grain leather, hand-cut
+        </div>
+      </div>
+    </div>
+
+    <!-- marquee strip -->
+    <div class="border-t border-paper/15 bg-ink py-3 overflow-hidden" role="presentation">
+      <div class="marquee-track text-sm tracking-wide text-paper/60">
+        <span class="flex items-center gap-3 pr-10">
+          <span>Brass &amp; sterling silver</span><span class="text-brass">•</span>
+          <span>Full-grain leather</span><span class="text-brass">•</span>
+          <span>Hand-finished clasps</span><span class="text-brass">•</span>
+          <span>Made to be worn daily</span><span class="text-brass">•</span>
+        </span>
+        <span class="flex items-center gap-3 pr-10" aria-hidden="true">
+          <span>Brass &amp; sterling silver</span><span class="text-brass">•</span>
+          <span>Full-grain leather</span><span class="text-brass">•</span>
+          <span>Hand-finished clasps</span><span class="text-brass">•</span>
+          <span>Made to be worn daily</span><span class="text-brass">•</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SHOP BY CATEGORY (static imagery) ============ -->
+  <section class="max-w-7xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24">
+    <h2 class="font-display text-3xl sm:text-4xl font-semibold mb-8">Shop by category</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+      <a href="#shop" class="group relative rounded-sm overflow-hidden aspect-[3/4]">
+        <img src="https://images.unsplash.com/photo-1578632297758-3a6c6de14be8?auto=format&fit=crop&w=500&q=70"
+          alt="Gold and silver rings" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <span class="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent"></span>
+        <span class="absolute bottom-4 left-4 text-paper font-display text-lg">Rings</span>
+      </a>
+      <a href="#shop" class="group relative rounded-sm overflow-hidden aspect-[3/4]">
+        <img src="https://images.unsplash.com/photo-1654699991520-aaaf4dd2608b?auto=format&fit=crop&w=500&q=70"
+          alt="Pearl necklace" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <span class="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent"></span>
+        <span class="absolute bottom-4 left-4 text-paper font-display text-lg">Necklaces</span>
+      </a>
+      <a href="#shop" class="group relative rounded-sm overflow-hidden aspect-[3/4]">
+        <img src="https://images.unsplash.com/photo-1473188588951-666fce8e7c68?auto=format&fit=crop&w=500&q=70"
+          alt="Leather satchel bag" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <span class="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent"></span>
+        <span class="absolute bottom-4 left-4 text-paper font-display text-lg">Bags</span>
+      </a>
+      <a href="#shop" class="group relative rounded-sm overflow-hidden aspect-[3/4]">
+        <img src="https://images.unsplash.com/photo-1628678172909-13a7209c7d62?auto=format&fit=crop&w=500&q=70"
+          alt="Silver analog watch" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <span class="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/0 to-transparent"></span>
+        <span class="absolute bottom-4 left-4 text-paper font-display text-lg">Watches</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ SHOP / FEATURED PRODUCTS (dynamic) ============ -->
+  <section id="shop" class="max-w-7xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+      <div>
+        <h2 class="font-display text-3xl sm:text-4xl font-semibold">Featured pieces</h2>
+        <p class="text-ink/60 mt-2 max-w-md">Pulled live from our catalog. Prices update automatically.</p>
+      </div>
+      <span id="shop-status" class="text-sm text-ink/50"></span>
+    </div>
+
+    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6" aria-live="polite">
+      <!-- populated by JS; skeletons injected on load -->
+    </div>
+  </section>
+
+  <!-- ============ THE EDIT / STYLE NOTES (dynamic) ============ -->
+  <section id="edit" class="bg-paper2/60 border-y border-ink/10">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
+      <div class="mb-10">
+        <h2 class="font-display text-3xl sm:text-4xl font-semibold">The Edit</h2>
+        <p class="text-ink/60 mt-2 max-w-md">Short notes on styling, refreshed each visit.</p>
+      </div>
+      <div id="notes-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" aria-live="polite">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT / MATERIALS ============ -->
+  <section id="about" class="max-w-7xl mx-auto px-5 sm:px-8 py-16 sm:py-24 grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+    <div>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold leading-tight">Built from real materials, not trends</h2>
+      <p class="mt-5 text-ink/70 leading-relaxed">
+        We started Clasp because most accessories are an afterthought — thin plating, glued seams, clasps that give out in a month. We design the other way around: pick the material first, then the shape. Everything is finished by hand in small batches.
+      </p>
+      <p class="mt-4 text-ink/70 leading-relaxed">
+        A piece from Clasp is meant to be worn on rotation for years, not just for a season's photos.
+      </p>
+    </div>
+
+    <div>
+      <div class="rounded-sm overflow-hidden mb-4">
+        <img src="https://images.unsplash.com/photo-1551346261-e19dd7ae9587?auto=format&fit=crop&w=800&q=70"
+          alt="A collection of rings, a hallmark of Clasp's craft" loading="lazy" class="w-full h-56 object-cover">
+      </div>
+      <ul class="grid grid-cols-2 gap-3">
+        <li class="border border-ink/15 rounded-sm px-4 py-4 bg-paper">
+          <p class="font-display text-lg">Brass &amp; silver</p>
+          <p class="text-sm text-ink/60 mt-1">Solid, not plated</p>
+        </li>
+        <li class="border border-ink/15 rounded-sm px-4 py-4 bg-paper">
+          <p class="font-display text-lg">Full-grain leather</p>
+          <p class="text-sm text-ink/60 mt-1">Belts &amp; bags</p>
+        </li>
+        <li class="border border-ink/15 rounded-sm px-4 py-4 bg-paper">
+          <p class="font-display text-lg">Sapphire glass</p>
+          <p class="text-sm text-ink/60 mt-1">Watch faces</p>
+        </li>
+        <li class="border border-ink/15 rounded-sm px-4 py-4 bg-paper">
+          <p class="font-display text-lg">Raw silk</p>
+          <p class="text-sm text-ink/60 mt-1">Scarves</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ NEWSLETTER ============ -->
+  <section class="bg-ink text-paper">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-14 sm:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div>
+        <h2 class="font-display text-2xl sm:text-3xl font-semibold">Get first look at new drops</h2>
+        <p class="text-paper/65 mt-1">One email a month. No spam, no exceptions.</p>
+      </div>
+      <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 w-full md:w-auto" novalidate>
+        <label for="newsletter-email" class="sr-only">Email address</label>
+        <input id="newsletter-email" type="email" required placeholder="you@email.com"
+          class="bg-paper/10 border border-paper/25 rounded-sm px-4 py-3 text-paper placeholder:text-paper/40 focus:bg-paper/15 w-full sm:w-72">
+        <button type="submit" class="bg-brass text-ink px-6 py-3 rounded-sm font-medium hover:bg-paper transition-colors whitespace-nowrap">
+          Sign up
+        </button>
+      </form>
+      <p id="newsletter-msg" class="sr-only" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="max-w-7xl mx-auto px-5 sm:px-8 py-16 sm:py-24 grid md:grid-cols-2 gap-12">
+    <div>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold">Talk to us</h2>
+      <p class="mt-4 text-ink/70 max-w-sm leading-relaxed">
+        Sizing question, repair, or a custom order — send a note and we'll reply within two business days.
+      </p>
+      <dl class="mt-8 space-y-4 text-sm">
+        <div class="flex gap-3">
+          <dt class="text-ink/50 w-20 shrink-0">Email</dt>
+          <dd>hello@clasp-studio.com</dd>
+        </div>
+        <div class="flex gap-3">
+          <dt class="text-ink/50 w-20 shrink-0">Studio</dt>
+          <dd>14 Ridley Lane, Accra</dd>
+        </div>
+        <div class="flex gap-3">
+          <dt class="text-ink/50 w-20 shrink-0">Hours</dt>
+          <dd>Mon–Fri, 9am–5pm GMT</dd>
+        </div>
+      </dl>
+    </div>
+
+    <form id="contact-form" class="space-y-5" novalidate>
+      <div>
+        <label for="cf-name" class="block text-sm mb-1.5">Name</label>
+        <input id="cf-name" name="name" type="text" required
+          class="w-full border border-ink/20 bg-paper rounded-sm px-4 py-3 focus:border-brass" aria-describedby="cf-name-err">
+        <p id="cf-name-err" class="text-berry text-sm mt-1 hidden">Please enter your name.</p>
+      </div>
+      <div>
+        <label for="cf-email" class="block text-sm mb-1.5">Email</label>
+        <input id="cf-email" name="email" type="email" required
+          class="w-full border border-ink/20 bg-paper rounded-sm px-4 py-3 focus:border-brass" aria-describedby="cf-email-err">
+        <p id="cf-email-err" class="text-berry text-sm mt-1 hidden">Please enter a valid email.</p>
+      </div>
+      <div>
+        <label for="cf-message" class="block text-sm mb-1.5">Message</label>
+        <textarea id="cf-message" name="message" rows="4" required
+          class="w-full border border-ink/20 bg-paper rounded-sm px-4 py-3 focus:border-brass" aria-describedby="cf-message-err"></textarea>
+        <p id="cf-message-err" class="text-berry text-sm mt-1 hidden">Tell us a little about what you need.</p>
+      </div>
+      <button type="submit" class="bg-ink text-paper px-7 py-3.5 rounded-sm font-medium hover:bg-berry transition-colors">
+        Send message
+      </button>
+      <p id="contact-success" class="text-sm text-ink/70 hidden" role="status">Thanks — we'll be in touch shortly.</p>
+    </form>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-ink text-paper/70 border-t border-paper/10">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-12 grid sm:grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+    <div class="col-span-2 md:col-span-1">
+      <p class="font-display text-xl text-paper">Clasp<span class="text-brass">.</span></p>
+      <p class="mt-3 text-paper/50 max-w-[22ch]">Accessories, finished right.</p>
+    </div>
+    <div>
+      <p class="text-paper/40 mb-3">Shop</p>
+      <ul class="space-y-2">
+        <li><a href="#shop" class="hover:text-paper">All pieces</a></li>
+        <li><a href="#edit" class="hover:text-paper">The Edit</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-paper/40 mb-3">Studio</p>
+      <ul class="space-y-2">
+        <li><a href="#about" class="hover:text-paper">About</a></li>
+        <li><a href="#contact" class="hover:text-paper">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-paper/40 mb-3">Follow</p>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:text-paper">Instagram</a></li>
+        <li><a href="#" class="hover:text-paper">Pinterest</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-paper/10 py-5 text-center text-xs text-paper/40">
+    © 2026 Clasp Studio. All rights reserved.
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- Mobile menu ---------- */
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  menuToggle.addEventListener('click', function () {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
+    menuToggle.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      mobileMenu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* ---------- Cart ---------- */
+  let cartCount = 0;
+  const cartCountEl = document.getElementById('cart-count');
+  const cartBtn = document.getElementById('cart-btn');
+
+  function addToCart(name) {
+    cartCount += 1;
+    cartCountEl.textContent = String(cartCount);
+    cartBtn.setAttribute('aria-label', 'Cart, ' + cartCount + ' items');
+  }
+
+  /* ---------- Featured products (FakeStoreAPI) ---------- */
+  const productGrid = document.getElementById('product-grid');
+  const shopStatus = document.getElementById('shop-status');
+
+  function renderProductSkeletons(count) {
+    let html = '';
+    for (let i = 0; i < count; i++) {
+      html += '<div class="border border-ink/10 rounded-sm p-3">' +
+        '<div class="skeleton h-40 rounded-sm mb-3"></div>' +
+        '<div class="skeleton h-3.5 w-3/4 rounded-sm mb-2"></div>' +
+        '<div class="skeleton h-3.5 w-1/3 rounded-sm"></div>' +
+        '</div>';
+    }
+    productGrid.innerHTML = html;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderProducts(products) {
+    productGrid.innerHTML = products.map(function (p, i) {
+      const title = escapeHtml(p.title.length > 40 ? p.title.slice(0, 40) + '…' : p.title);
+      return (
+        '<article class="group border border-ink/10 rounded-sm p-3 bg-paper hover:border-brass/60 transition-colors">' +
+          '<div class="aspect-square bg-white rounded-sm overflow-hidden mb-3 flex items-center justify-center">' +
+            '<img src="' + p.image + '" alt="' + title + '" loading="lazy" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">' +
+          '</div>' +
+          '<h3 class="text-sm sm:text-[15px] leading-snug mb-1">' + title + '</h3>' +
+          '<div class="flex items-center justify-between">' +
+            '<span class="font-display text-brassdark">$' + Number(p.price).toFixed(2) + '</span>' +
+            '<button type="button" data-index="' + i + '" class="add-to-cart text-xs border border-ink/20 rounded-sm px-2.5 py-1.5 hover:bg-ink hover:text-paper transition-colors">Add</button>' +
+          '</div>' +
+        '</article>'
+      );
+    }).join('');
+
+    productGrid.querySelectorAll('.add-to-cart').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const p = products[Number(btn.dataset.index)];
+        addToCart(p.title);
+        btn.textContent = 'Added';
+        setTimeout(function () { btn.textContent = 'Add'; }, 1200);
+      });
+    });
+  }
+
+  function loadProducts() {
+    renderProductSkeletons(8);
+    shopStatus.textContent = 'Loading…';
+    fetch('https://fakestoreapi.com/products/category/jewelery')
+      .then(function (res) {
+        if (!res.ok) throw new Error('Request failed: ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        // Pad with a couple more general items so the grid feels fuller
+        return fetch('https://fakestoreapi.com/products?limit=4')
+          .then(function (res) { return res.ok ? res.json() : []; })
+          .then(function (extra) {
+            const combined = data.concat(extra.filter(function (e) {
+              return !data.some(function (d) { return d.id === e.id; });
+            })).slice(0, 8);
+            renderProducts(combined);
+            shopStatus.textContent = combined.length + ' pieces';
+          });
+      })
+      .catch(function (err) {
+        console.error(err);
+        productGrid.innerHTML = '<p class="col-span-full text-ink/60 text-sm border border-dashed border-ink/20 rounded-sm p-6">' +
+          'Couldn\'t load live pieces right now — please refresh, or check back shortly.</p>';
+        shopStatus.textContent = '';
+      });
+  }
+
+  loadProducts();
+
+  /* ---------- The Edit / style notes (DummyJSON quotes) ---------- */
+  const notesGrid = document.getElementById('notes-grid');
+
+  function renderNoteSkeletons(count) {
+    let html = '';
+    for (let i = 0; i < count; i++) {
+      html += '<div class="border border-ink/10 rounded-sm p-5 bg-paper">' +
+        '<div class="skeleton h-3.5 w-full rounded-sm mb-2"></div>' +
+        '<div class="skeleton h-3.5 w-5/6 rounded-sm mb-2"></div>' +
+        '<div class="skeleton h-3.5 w-1/4 rounded-sm mt-4"></div>' +
+        '</div>';
+    }
+    notesGrid.innerHTML = html;
+  }
+
+  function renderNotes(notes) {
+    notesGrid.innerHTML = notes.map(function (n) {
+      return (
+        '<article class="clip-card border border-ink/10 bg-paper p-5">' +
+          '<p class="leading-relaxed text-[15px]">' + escapeHtml(n.quote) + '</p>' +
+          '<p class="text-sm text-brassdark mt-4">— ' + escapeHtml(n.author) + '</p>' +
+        '</article>'
+      );
+    }).join('');
+  }
+
+  function loadNotes() {
+    renderNoteSkeletons(3);
+    fetch('https://dummyjson.com/quotes/random/3')
+      .then(function (res) {
+        if (!res.ok) throw new Error('Request failed: ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        const notes = Array.isArray(data) ? data : (data.quotes || []);
+        if (!notes.length) throw new Error('Empty response');
+        renderNotes(notes);
+      })
+      .catch(function (err) {
+        console.error(err);
+        notesGrid.innerHTML = '<p class="col-span-full text-ink/60 text-sm border border-dashed border-ink/20 rounded-sm p-6">' +
+          'Couldn\'t load today\'s notes — please refresh in a moment.</p>';
+      });
+  }
+
+  loadNotes();
+
+  /* ---------- Smooth scroll for internal nav links ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      const id = link.getAttribute('href');
+      if (id.length > 1) {
+        const target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+
+  /* ---------- Newsletter form ---------- */
+  const newsletterForm = document.getElementById('newsletter-form');
+  const newsletterMsg = document.getElementById('newsletter-msg');
+  newsletterForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const input = document.getElementById('newsletter-email');
+    if (input.checkValidity()) {
+      newsletterMsg.textContent = 'Thanks — you\'re on the list.';
+      newsletterMsg.classList.remove('sr-only');
+      newsletterMsg.classList.add('text-brass', 'text-sm', 'mt-2');
+      input.value = '';
+    } else {
+      input.focus();
+    }
+  });
+
+  /* ---------- Contact form validation ---------- */
+  const contactForm = document.getElementById('contact-form');
+  const contactSuccess = document.getElementById('contact-success');
+
+  function toggleError(inputId, errId, show) {
+    document.getElementById(errId).classList.toggle('hidden', !show);
+    document.getElementById(inputId).classList.toggle('border-berry', show);
+  }
+
+  contactForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('cf-name');
+    const email = document.getElementById('cf-email');
+    const message = document.getElementById('cf-message');
+
+    const nameOk = name.value.trim().length > 0;
+    const emailOk = email.checkValidity() && email.value.trim().length > 0;
+    const messageOk = message.value.trim().length > 4;
+
+    toggleError('cf-name', 'cf-name-err', !nameOk);
+    toggleError('cf-email', 'cf-email-err', !emailOk);
+    toggleError('cf-message', 'cf-message-err', !messageOk);
+
+    if (nameOk && emailOk && messageOk) {
+      contactSuccess.classList.remove('hidden');
+      contactForm.reset();
+      setTimeout(function () { contactSuccess.classList.add('hidden'); }, 5000);
+    } else {
+      const firstInvalid = !nameOk ? name : (!emailOk ? email : message);
+      firstInvalid.focus();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
